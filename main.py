@@ -113,6 +113,7 @@ for i in range(10): # итерации
 for i in range(len(points)-1, -1, -1):
     if len(points[i].edges) != 49:
         print('error')
+        print('Total Error')
 
 
 

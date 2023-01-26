@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/antalhorithm.iml" filepath="$PROJECT_DIR$/.idea/antalhorithm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ant-algorithm.iml" filepath="$PROJECT_DIR$/.idea/ant-algorithm.iml" />
     </modules>
   </component>
 </project>
