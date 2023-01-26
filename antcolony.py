@@ -2,10 +2,12 @@ class Point():
     def __init__(self,x,y):
         self.x, self.y = x,y
         self.edges = list()
+
     def add_edge(self, point):
         edge = Edge(self,point)
         self.edges.append(edge)
         point.edges.append(edge)
+
     def __repr__(self):
         return f'({self.x:.1f},{self.y:.1f})'
 
@@ -15,8 +17,10 @@ class Edge():
         self.points = (point1, point2)
         self.distance = ((point1.x - point2.x)**2 + (point1.y - point2.y)**2)**0.5
         self.t = 0.
+
     def add(self, value):
         self.t += value
+
     def go(self, coof):
         self.pher = coof * self.pher + self.t
         self.t = 0
@@ -27,6 +31,7 @@ class Ant():
 
     def change_point(self, point:Point):
         self.point = point
+
     def go(self):
         pass
 
