@@ -42,21 +42,26 @@ class Ant():
     def change_point(self, point:Point):
         self.point = point
 
-    def go(self, a, b):
-        probability = 0
-        prob = list()
-        for i in self.point.edges:
-            p = i.pher**a * (1/i.distance)**b
-            prob.append(p)
-            probability += p
-        for i in range(len(prob)):
-            prob[i] = prob[i]/probability
+    def go(self, a, b, points):
+        unmeeted_edges = self.point.edges.copy()
+        for j in range(len(points)):
+            # j-я итерация
+            probability = 0
+            prob = list()
+            for i in unmeeted_edges:
+                p = i.pher**a * (1/i.distance)**b
+                prob.append(p)
+                probability += p
+            for i in range(len(prob)):
+                prob[i] = prob[i]/probability
 
-        rn = random.random()
-        for i in range(len(prob)):
-            if sum(prob[0:i+1]) > rn:
-                return self.point.edges[i][0] if not(self.point.edges[i][0] is self.point) else self.point.edges[i][1]
-
+            rn = random.random()
+            for i in range(len(prob)):
+                if sum(prob[0:i+1]) > rn:
+                    point = self.point.edges[i].points[0] if not(self.point.edges[i].points[0] is self.point) else self.point.edges[i].points[1]
+                    unmeeted_edges.remove(point)
+                    self.change_point(point)
+                    print(point)
 
 class AntColony():
     def __init__(self, points : list, make_links = True):
@@ -71,14 +76,12 @@ class AntColony():
     def link_points(self):
         for i in self.points:
             for k in self.points:
-                i.link(k)
+                if not i is k:
+                    i.link(k)
 
     def add_ant(self):
         if self.points:
             self.ant = Ant(point= self.points[0])
 
-    def go(self, iters, DIS_COOF, Q, A, B, show_result = True):
-        for i in range(len(self.points)):
-            print(self.ant.point)
-            self.ant.change_point(self.ant.go(a=A, b=B))
-            print(self.ant.point)
+    def go(self, iters, DIS_COOF, Q, A, B,points, show_result = True):
+        self.ant.go(a=A, b=B, points=points)
